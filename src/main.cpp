@@ -39,7 +39,10 @@ void loop() {
     sequence_start_time = cur_time;
 
     memset(activated, 0, sizeof(activated));
-    init_servo_pos();
+
+    #ifdef HOME_AT_SEQUENCE_START
+      init_servo_pos();
+    #endif
   }
 
   for (uint8_t i = 0; i < NUM_ACTIONS; i++) {

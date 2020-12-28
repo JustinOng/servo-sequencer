@@ -12,6 +12,11 @@ const uint8_t PINS_SERVOS[NUM_SERVOS] = { 2, 3 };
 // on sequence start, the servos will be set to this position, between 0 to 180
 const uint8_t HOME_POSITION[NUM_SERVOS] = { 90, 90 };
 
+// whether to return to home at the start of sequence
+// if uncommented: returns to home at the start of sequence
+// if commented: returns to home only upon powerup initially
+#define HOME_AT_SEQUENCE_START
+
 // time in milliseconds after which the sequence will restart
 const uint32_t RESET_TIME = 10000;
 

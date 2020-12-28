@@ -1,40 +1,9 @@
 #include <Arduino.h>
 #include <Servo.h>
 
-typedef struct {
-  uint8_t servo_num;
-  uint32_t start_time;   // time in ms to start this action at
-  uint32_t time_to_take; // time in ms to take to move from current to target_angle
-  uint8_t target_angle;  // 0 - 180
-} action_t;
+#include "action.h"
+#include "config.h"
 
-const uint32_t RESET_TIME = 10000;
-
-const action_t actions[] = {
-  {
-    .servo_num = 0,
-    .start_time = 0,
-    .time_to_take = 500,
-    .target_angle = 180
-  },
-  {
-    .servo_num = 1,
-    .start_time = 100,
-    .time_to_take = 400,
-    .target_angle = 180
-  },
-  {
-    .servo_num = 0,
-    .start_time = 500,
-    .time_to_take = 500,
-    .target_angle = 0
-  }
-};
-
-#define NUM_SERVOS 2
-
-const uint8_t PINS_SERVOS[NUM_SERVOS] = { 2, 3 };
-const uint8_t HOME_POSITION[NUM_SERVOS] = { 90, 90 };
 Servo servos[NUM_SERVOS];
 
 uint8_t current_pos[NUM_SERVOS] = { 0 };

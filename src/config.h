@@ -15,7 +15,7 @@ const uint8_t HOME_POSITION[NUM_SERVOS] = { 90, 60 };
 // whether to return to home at the start of sequence
 // if uncommented: returns to home at the start of sequence
 // if commented: returns to home only upon powerup initially
-#define HOME_AT_SEQUENCE_START
+// #define HOME_AT_SEQUENCE_START
 
 // time in milliseconds after which the sequence will restart
 const uint32_t RESET_TIME = 10000;

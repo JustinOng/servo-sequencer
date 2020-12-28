@@ -8,6 +8,8 @@ typedef struct {
   uint8_t target_angle;  // 0 - 180
 } action_t;
 
+const uint32_t RESET_TIME = 10000;
+
 const action_t actions[] = {
   {
     .servo_num = 0,
@@ -31,7 +33,8 @@ const action_t actions[] = {
 
 #define NUM_SERVOS 2
 
-const uint8_t PINS_SERVOS[NUM_SERVOS] = {2, 3};
+const uint8_t PINS_SERVOS[NUM_SERVOS] = { 2, 3 };
+const uint8_t HOME_POSITION[NUM_SERVOS] = { 90, 90 };
 Servo servos[NUM_SERVOS];
 
 uint8_t current_pos[NUM_SERVOS] = { 0 };
@@ -43,9 +46,17 @@ uint8_t target_pos[NUM_SERVOS] = { 0 };
 const uint16_t NUM_ACTIONS = sizeof(actions) / sizeof(action_t);
 uint8_t activated[NUM_ACTIONS] = { 0 };
 
+void init_servo_pos() {
+  for (uint8_t i = 0; i < NUM_SERVOS; i++) {
+    servos[i].write(HOME_POSITION[i]);
+    current_pos[i] = HOME_POSITION[i];
+  }
+}
+
 void setup() {
   for (uint8_t i = 0; i < NUM_SERVOS; i++) {
     servos[i].attach(PINS_SERVOS[i]);
+    init_servo_pos();
   }
 
   Serial.begin(115200);
@@ -53,8 +64,14 @@ void setup() {
 
 void loop() {
   static uint32_t sequence_start_time = millis();
-
   uint32_t cur_time = millis();
+
+  if ((cur_time - sequence_start_time) > RESET_TIME) {
+    sequence_start_time = cur_time;
+
+    memset(activated, 0, sizeof(activated));
+    init_servo_pos();
+  }
 
   for (uint8_t i = 0; i < NUM_ACTIONS; i++) {
     if (activated[i]) {

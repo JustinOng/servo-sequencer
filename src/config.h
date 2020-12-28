@@ -10,7 +10,7 @@
 const uint8_t PINS_SERVOS[NUM_SERVOS] = { 2, 3 };
 // initial home position for the corresponding servos
 // on sequence start, the servos will be set to this position, between 0 to 180
-const uint8_t HOME_POSITION[NUM_SERVOS] = { 90, 90 };
+const uint8_t HOME_POSITION[NUM_SERVOS] = { 90, 60 };
 
 // whether to return to home at the start of sequence
 // if uncommented: returns to home at the start of sequence
@@ -39,19 +39,25 @@ const action_t actions[] = {
     .servo_num = 0,
     .start_time = 0,
     .time_to_take = 3000,
-    .target_angle = 180
-  },
-  {
-    .servo_num = 1,
-    .start_time = 100,
-    .time_to_take = 4000,
-    .target_angle = 180
+    .target_angle = 40
   },
   {
     .servo_num = 0,
     .start_time = 3000,
     .time_to_take = 1000,
-    .target_angle = 0
+    .target_angle = 140
+  },
+  {
+    .servo_num = 1,
+    .start_time = 0,
+    .time_to_take = 4000,
+    .target_angle = 70
+  },
+  {
+    .servo_num = 1,
+    .start_time = 4000,
+    .time_to_take = 4000,
+    .target_angle = 50
   }
 };
 
